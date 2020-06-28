@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import QuizQuestion from "./QuizQuestion";
 import QuizEnd from "./QuizEnd";
 
@@ -17,9 +17,13 @@ class Quiz extends Component {
         const isQuizEnd = this.state.quiz_position - 1 === quizData.quiz_questions.length;
         let toDisplay;
         if (isQuizEnd) {
-            toDisplay = <QuizEnd />;
+            toDisplay =
+                <QuizEnd
+                    resetClickHandler={this.handleResetClick.bind(this)}
+                />;
         } else {
-            toDisplay = <QuizQuestion quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]} showNextQuestionHandler={this.showNextQuestion.bind(this)}/>;
+            toDisplay = <QuizQuestion quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]}
+                                      showNextQuestionHandler={this.showNextQuestion.bind(this)}/>;
         }
         return (
             <div>
@@ -32,6 +36,12 @@ class Quiz extends Component {
         let nextPosition = this.state.quiz_position + 1;
         this.setState({
             quiz_position: nextPosition,
+        })
+    }
+
+    handleResetClick() {
+        this.setState({
+            quiz_position: 1,
         })
     }
 
